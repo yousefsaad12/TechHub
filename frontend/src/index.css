@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "highlight.js/styles/github.css";
+
+/* UI / Navbar / Buttons / Headings */
+.ui-font {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Reading / Articles / Summaries */
+.reading-font {
+  font-family: 'Source Serif Pro', Georgia, Cambria, "Times New Roman", serif;
+}

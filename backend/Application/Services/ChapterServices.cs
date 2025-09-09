@@ -1,11 +1,9 @@
 using backend.Application.DTOs.Requests;
 using backend.Application.DTOs.Responses;
-using backend.Application.Interfaces;
 using backend.Application.Interfaces.Services;
 using backend.Application.Mappers;
 using backend.Domain.Interfaces;
 using backend.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace backend.Application.Services
 {
@@ -60,7 +58,7 @@ namespace backend.Application.Services
                 Chapter? chapter = await _chapterRepository.GetChapterById(chapterId);
 
                 if (chapter is null) return "Chapter not found";
-                
+
                 return await _chapterRepository.DeleteChapter(chapter);
             }
             catch (Exception ex)
@@ -87,7 +85,7 @@ namespace backend.Application.Services
         }
 
         public async Task<ChapterDetailResponseDto?> GetChapterById(int chapterId)
-        {   
+        {
             return await _chapterRepository.GetChapterById(chapterId) is Chapter chapter ? chapter.ToChapterDetailResponseDto() : null;
         }
 
@@ -121,7 +119,7 @@ namespace backend.Application.Services
             }
         }
 
-        public async Task<IEnumerable<ChapterDetailResponseDto>> getChaptersDetailByBookId(int bookId)
+        public async Task<ChapterDetailResponseDto?> GetChapterByBookIdAndChapterNumber(int bookId, int chapterNumber)
         {
             try
             {
@@ -130,13 +128,22 @@ namespace backend.Application.Services
                     throw new ArgumentException("BookId must be greater than 0", nameof(bookId));
                 }
 
+                if (chapterNumber <= 0)
+                {
+                    throw new ArgumentException("chapter Number must be greater than 0", nameof(chapterNumber));
+                }
+
                 if (!await _bookRepository.isBookExists(bookId))
                 {
                     throw new InvalidOperationException("Book does not exist");
                 }
 
-                IEnumerable<Chapter> chapters = await _chapterRepository.getChaptersDetailByBookId(bookId);
-                return chapters.Select(ch => ch.ToChapterDetailResponseDto());
+
+                Chapter? chapter = await _chapterRepository.GetChapterByBookIdAndChapterNumber(bookId, chapterNumber);
+
+                if (chapter is null) return null;
+
+                return chapter.ToChapterDetailResponseDto();
             }
             catch (ArgumentException)
             {

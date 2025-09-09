@@ -11,7 +11,7 @@ namespace backend.Domain.Interfaces
 
         public Task<Chapter?> GetChapterById(int chapter);
         public Task<List<ChapterResponseDto>> getChaptersByBookId(int bookId);
-        public Task<IEnumerable<Chapter>> getChaptersDetailByBookId(int bookId);
+        public Task<Chapter ?> GetChapterByBookIdAndChapterNumber(int bookId, int chapterNumber);
 
         public Task<string> DeleteChapter(Chapter chapter);
     }

@@ -86,12 +86,12 @@ namespace backend.API.Controller
         }
 
         [HttpGet]
-        [Route("{bookId}/chapters-detail")]
-        public async Task<IActionResult> GetChaptersDetailByBookId(int bookId)
+        [Route("{bookId}/chapter/{chapterNumber}")]
+        public async Task<IActionResult> GetChaptersDetailByBookId(int bookId, int chapterNumber)
         {
             try
             {
-                var chaptersDetail = await _chapterServices.getChaptersDetailByBookId(bookId);
+                var chaptersDetail = await _chapterServices.GetChapterByBookIdAndChapterNumber(bookId, chapterNumber);
                 return Ok(chaptersDetail);
             }
             catch (Exception ex)

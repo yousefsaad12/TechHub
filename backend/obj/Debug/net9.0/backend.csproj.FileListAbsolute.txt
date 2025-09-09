@@ -131,3 +131,4 @@ D:\Blog\backend\bin\Debug\net9.0\Newtonsoft.Json.dll
 D:\Blog\backend\bin\Debug\net9.0\Sprache.dll
 D:\Blog\backend\bin\Debug\net9.0\Config\appsettings.Development.json
 D:\Blog\backend\bin\Debug\net9.0\Config\appsettings.json
+D:\Blog\backend\obj\Debug\net9.0\backend.sourcelink.json

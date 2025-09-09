@@ -13,7 +13,7 @@ namespace backend.Infrastructure.Repository
         public ChapterRepository(AppDbContext appContext)
         {
             _appContext = appContext;
-          
+
         }
 
         public async Task<Chapter> addChapter(Chapter chapter)
@@ -44,9 +44,9 @@ namespace backend.Infrastructure.Repository
         {
             try
             {
-               _appContext.Chapters.Remove(chapter);
-               await _appContext.SaveChangesAsync();
-               return "Chapter deleted successfully";
+                _appContext.Chapters.Remove(chapter);
+                await _appContext.SaveChangesAsync();
+                return "Chapter deleted successfully";
             }
             catch (DbUpdateException ex)
             {
@@ -58,7 +58,7 @@ namespace backend.Infrastructure.Repository
             }
         }
 
-     
+
 
         public async Task<IEnumerable<Chapter>> getAllChapters()
         {
@@ -73,7 +73,7 @@ namespace backend.Infrastructure.Repository
             }
             catch (Exception ex)
             {
-                throw ex.InnerException ?? ex;;
+                throw ex.InnerException ?? ex; ;
             }
         }
 
@@ -110,7 +110,7 @@ namespace backend.Infrastructure.Repository
             }
             catch (ArgumentException)
             {
-                throw; 
+                throw;
             }
             catch (InvalidOperationException ex)
             {
@@ -118,26 +118,19 @@ namespace backend.Infrastructure.Repository
             }
             catch (Exception ex)
             {
-                throw ex.InnerException ?? ex;;
+                throw ex.InnerException ?? ex; ;
             }
         }
 
-        public async Task<IEnumerable<Chapter>> getChaptersDetailByBookId(int bookId)
+        public async Task<Chapter?> GetChapterByBookIdAndChapterNumber(int bookId, int chapterNumber)
         {
             try
             {
-                if (bookId <= 0)
-                {
-                    throw new ArgumentException("BookId must be greater than 0", nameof(bookId));
-                }
 
-                var chapters = await _appContext.Chapters
-                                        .Where(ch => ch.BookId == bookId)
-                                        .AsNoTracking()
-                                        .OrderBy(ch => ch.ChapterNumber)
-                                        .ToListAsync();
-
-                return chapters;
+                Chapter? chapter = await _appContext.Chapters
+                                        .Where(ch => ch.BookId == bookId && ch.ChapterNumber == chapterNumber)
+                                        .FirstOrDefaultAsync();
+                return chapter;
             }
             catch (ArgumentException)
             {
@@ -149,7 +142,7 @@ namespace backend.Infrastructure.Repository
             }
             catch (Exception ex)
             {
-                throw ex.InnerException ?? ex;;
+                throw ex.InnerException ?? ex; ;
             }
         }
     }

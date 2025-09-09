@@ -12,13 +12,13 @@ namespace backend.Application.Interfaces.Services
         public Task<ChapterResponseDto> addChapter(ChapterRequestDto chapter);
 
         public Task<IEnumerable<ChapterDetailResponseDto>> getAllChapters();
-        public Task<IEnumerable<ChapterDetailResponseDto>> getChaptersDetailByBookId(int bookId);
-        
+        public Task<ChapterDetailResponseDto?> GetChapterByBookIdAndChapterNumber(int bookId, int chapterNumber);
+
         public Task<ChapterDetailResponseDto?> GetChapterById(int chapterId);
 
         public Task<string> DeleteChapter(int chapterId);
         public Task<IEnumerable<ChapterResponseDto>> getChaptersByBookId(int bookId);
     }
 
-    
+
 }

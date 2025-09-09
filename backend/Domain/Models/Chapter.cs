@@ -17,5 +17,7 @@ public partial class Chapter
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? VideoUrl { get; set; }
+
     public virtual Book? Book { get; set; }
 }

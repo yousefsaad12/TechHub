@@ -75,6 +75,9 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("title");
 
+            entity.Property(c => c.VideoUrl)
+                  .HasMaxLength(2083);
+
             entity.HasOne(d => d.Book).WithMany(p => p.Chapters)
                 .HasForeignKey(d => d.BookId)
                 .OnDelete(DeleteBehavior.Cascade)

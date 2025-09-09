@@ -23,7 +23,10 @@ const ChapterCard = ({ chapter, bookData, isSelected, onToggle }) => {
 
   const handleStartReading = (e) => {
     e.stopPropagation();
-    navigate(`/read/${encodeURIComponent(bookData.title)}/${chapter.id}`);
+    const chapterNumber = chapter.chapter_number ?? chapter.chapterNumber;
+    const rawBookId = bookData?.id ?? bookData?.bookId ?? bookData?.title;
+    const bookSlug = bookData?.title || String(rawBookId);
+    navigate(`/read/${encodeURIComponent(bookSlug)}/${chapterNumber}`, { state: { bookTitle: bookData?.title || '', id: bookData?.id ?? bookData?.bookId } });
   };
 
   return (

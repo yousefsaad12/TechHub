@@ -1,4 +1,4 @@
-import { FaLinkedin, FaTiktok, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -12,7 +12,9 @@ export default function Footer() {
               <span className="px-2 sm:px-3 py-1 border-2 border-gray-800 rounded-full text-gray-800 mr-2 sm:mr-3 text-xs sm:text-sm font-mono group-hover:bg-gray-800 group-hover:text-white transition-all duration-300">
                 &lt;/&gt;
               </span>
-              <span className="group-hover:text-gray-700 transition-colors duration-300">TechHub</span>
+              <span className="group-hover:text-gray-700 transition-colors duration-300">
+                TechHub
+              </span>
             </div>
           </div>
 
@@ -22,28 +24,29 @@ export default function Footer() {
               href="https://www.linkedin.com/in/yousefsaad1/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
+              className="text-gray-700 hover:text-[#0A66C2] hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
               aria-label="LinkedIn"
             >
               <FaLinkedin className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
+
             <a
               href="https://www.tiktok.com/@codecraftx?is_from_webapp=1&sender_device=pc"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
+              className="text-gray-700 hover:text-[#010101] hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
               aria-label="TikTok"
             >
               <FaTiktok className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-gray-900 hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
-              aria-label="GitHub"
+              className="text-gray-700 hover:text-red-600 hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
+              aria-label="YouTube"
             >
-              <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
+              <FaYoutube className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
           </div>
         </div>

@@ -1,54 +1,56 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import ReadingProgressBar from '../components/ReadingProgressBar';
 import TableOfContents from '../components/TableOfContents';
 import ChapterHeader from '../components/ChapterHeader';
 import ChapterArticle from '../components/ChapterArticle';
-import ChapterNavigation from '../components/ChapterNavigation';
+import ChapterReaderSkeleton from '../components/ChapterReaderSkeleton';
+// ChapterNavigation removed
 import { extractSectionHeadings } from '../utils/extractSectionHeadings';
-import { booksData } from '../data/booksData';
+import useChapter from '../hooks/useChapter';
+import useChapters from '../hooks/useChapters';
 
 const ChapterReader = () => {
-  const { bookId, chapterId } = useParams();
+  const { bookId, chapterNumber } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [readingTime, setReadingTime] = useState(0);
 
-  // Get book and chapter data
-  const bookData = booksData[decodeURIComponent(bookId)];
-  const chapter = bookData?.chapters?.find(ch => ch.id === parseInt(chapterId));
-  const chapterIndex = bookData?.chapters?.findIndex(ch => ch.id === parseInt(chapterId));
-  const totalChapters = bookData?.chapters?.length || 0;
+  // Fetch chapter data from backend
+  const decodedBookId = decodeURIComponent(bookId);
+  const numericBookId = Number(decodedBookId);
+  const fallbackBookIdFromState = location.state && (location.state.id ?? location.state.bookId);
+  const effectiveBookId = Number.isFinite(numericBookId) ? numericBookId : fallbackBookIdFromState ?? decodedBookId;
+  const { chapter, loading, error } = useChapter(effectiveBookId, decodeURIComponent(chapterNumber));
+  const { chapters: allChapters } = useChapters(effectiveBookId);
+  const currentChapterNumber = Number(chapter?.chapter_number ?? chapter?.chapterNumber ?? decodeURIComponent(chapterNumber));
+  const totalChapters = Array.isArray(allChapters) ? allChapters.length : 0;
+  const chapterIndex = Number.isFinite(currentChapterNumber) && currentChapterNumber > 0 ? currentChapterNumber - 1 : 0;
 
-  // Only use actual chapter content; no placeholder sample text
+  // Determine effective content for rendering and ToC (prefer content, fallback to summary)
   const markdownContent = chapter?.content || '';
+  const effectiveContent = markdownContent || chapter?.summary || '';
 
-  // Track reading time
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setReadingTime(prev => prev + 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  // Removed reading time tracking (no navigation component)
 
   // Navigation functions
   const goToPreviousChapter = () => {
-    if (chapterIndex > 0) {
-      const prevChapter = bookData.chapters[chapterIndex - 1];
-      navigate(`/read/${encodeURIComponent(bookId)}/${prevChapter.id}`);
+    if (Number.isFinite(currentChapterNumber) && currentChapterNumber > 1) {
+      navigate(`/read/${encodeURIComponent(bookId)}/${currentChapterNumber - 1}`, { state: { bookTitle: (location.state && location.state.bookTitle) || '' } });
     }
   };
 
   const goToNextChapter = () => {
-    if (chapterIndex < totalChapters - 1) {
-      const nextChapter = bookData.chapters[chapterIndex + 1];
-      navigate(`/read/${encodeURIComponent(bookId)}/${nextChapter.id}`);
+    if (Number.isFinite(currentChapterNumber) && typeof totalChapters === 'number' && currentChapterNumber < totalChapters) {
+      navigate(`/read/${encodeURIComponent(bookId)}/${currentChapterNumber + 1}`, { state: { bookTitle: (location.state && location.state.bookTitle) || '' } });
     }
   };
 
   const goBackToChapters = () => {
-    navigate(`/chapters/${encodeURIComponent(bookId)}`);
+    const backId = (location.state && (location.state.id ?? location.state.bookId)) || bookId;
+    navigate(`/chapters/${encodeURIComponent(backId)}`, {
+      state: { id: (location.state && (location.state.id ?? location.state.bookId)) }
+    });
   };
 
   const toggleBookmark = () => {
@@ -59,7 +61,7 @@ const ChapterReader = () => {
     if (navigator.share) {
       navigator.share({
         title: chapter?.title,
-        text: `Read "${chapter?.title}" from ${bookData?.title}`,
+        text: `Read "${chapter?.title}" from ${(location.state && location.state.bookTitle) || chapter?.book_title || ''}`,
         url: window.location.href,
       });
     } else {
@@ -67,11 +69,11 @@ const ChapterReader = () => {
     }
   };
 
-  if (!bookData || !chapter) {
+  if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Chapter Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-800 mb-4">{error}</h1>
           <button
             onClick={goBackToChapters}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -83,7 +85,11 @@ const ChapterReader = () => {
     );
   }
 
-  const sectionHeadings = markdownContent ? extractSectionHeadings(markdownContent) : [];
+  if (loading || !chapter) {
+    return <ChapterReaderSkeleton />;
+  }
+
+  const sectionHeadings = effectiveContent ? extractSectionHeadings(effectiveContent) : [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -96,8 +102,8 @@ const ChapterReader = () => {
       <ChapterHeader
         onBack={goBackToChapters}
         onShare={shareChapter}
-        bookTitle={bookData.title}
-        chapterNumber={chapter.chapter_number}
+        bookTitle={(location.state && location.state.bookTitle) || chapter?.book_title || ''}
+        chapterNumber={chapter.chapter_number ?? chapter.chapterNumber}
       />
 
       {/* Main Content */}
@@ -108,17 +114,9 @@ const ChapterReader = () => {
           And in your CSS:
           .reading-font { font-family: 'Source Serif Pro', Georgia, Cambria, 'Times New Roman', Times, serif; }
         */}
-        <ChapterArticle markdownContent={markdownContent} />
+        <ChapterArticle markdownContent={effectiveContent} />
 
-        {/* Chapter Navigation */}
-        <ChapterNavigation
-          chapterIndex={chapterIndex}
-          totalChapters={totalChapters}
-          onPrev={goToPreviousChapter}
-          onNext={goToNextChapter}
-          readingTimeSeconds={readingTime}
-          estimatedMinutes={chapter.estimated_read_time}
-        />
+        {/* Chapter Navigation removed */}
       </main>
 
       {/* Styles now provided by ChapterArticle */}

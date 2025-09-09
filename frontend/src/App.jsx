@@ -18,7 +18,7 @@ function App() {
           <Route path="/books" element={<Books/>} />
           <Route path="/chapters/:bookId" element={<Chapters booksData={booksData}/>} />
           <Route path="/books/:bookSlug/chapters" element={<Chapters/>} />
-          <Route path="/read/:bookId/:chapterId" element={<ChapterReader/>} />
+          <Route path="/read/:bookId/:chapterNumber" element={<ChapterReader/>} />
        </Routes>
         <Footer />
       </BrowserRouter>

@@ -7,6 +7,7 @@ import ChaptersHeader from '../components/ChaptersHeader';
 import SearchInput from '../components/SearchInput';
 
 import useChapters from '../hooks/useChapters';
+import useBooks from '../hooks/useBooks';
 
 const Chapters = () => {
   const [selectedChapter, setSelectedChapter] = useState(null);
@@ -18,7 +19,9 @@ const Chapters = () => {
   const idFromState = location.state?.id ? decodeURIComponent(location.state.id) : '';
   const id = idFromParams || idFromState;
   const { selectedBook } = useBookContext();
-  const bookData = location.state?.book || selectedBook || null;
+  const { books } = useBooks();
+  const fallbackFromList = Array.isArray(books) ? books.find(b => String(b.id) === String(id)) : null;
+  const bookData = location.state?.book || selectedBook || fallbackFromList || null;
   const { chapters, loading: chaptersLoading, error: chaptersError } = useChapters(id);
 
   const toggleChapter = (chapterId) => {

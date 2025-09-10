@@ -6,7 +6,7 @@ import './ChapterArticle.css';
 
 const ChapterArticle = ({ markdownContent }) => {
   return (
-    <article className="prose prose-lg prose-gray max-w-none markdown-content reading-font">
+    <article className="prose prose-xl prose-gray max-w-none markdown-content reading-font">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight]}>
         {markdownContent}
       </ReactMarkdown>

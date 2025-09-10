@@ -15,6 +15,8 @@ namespace backend.Application.DTOs.Responses
 
         public int? EstimatedReadTime { get; set; }
 
+        public string? VideoUrl { get; set; }
+
         public DateTime? CreatedAt { get; set; }
     }
 }

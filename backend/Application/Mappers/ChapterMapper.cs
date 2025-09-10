@@ -42,6 +42,7 @@ namespace backend.Application.Mappers
                     Title = chapterRequestDto.Title!,
                     EstimatedReadTime = chapterRequestDto.EstimatedReadTime,
                     Summary = chapterRequestDto.Summary,
+                    VideoUrl = chapterRequestDto.VideoUrl,
                     CreatedAt = DateTime.Now,
                 };
             }
@@ -75,6 +76,7 @@ namespace backend.Application.Mappers
                     ChapterNumber = chapter.ChapterNumber,
                     Title = chapter.Title,
                     EstimatedReadTime = chapter.EstimatedReadTime,
+                    VideoUrl = chapter.VideoUrl,
                     CreatedAt = chapter.CreatedAt,
                 };
             }
@@ -105,6 +107,7 @@ namespace backend.Application.Mappers
                     Summary = chapter.Summary,
                     Title = chapter.Title,
                     EstimatedReadTime = chapter.EstimatedReadTime,
+                    VideoUrl = chapter.VideoUrl,
                     CreatedAt = chapter.CreatedAt,
                 };
             }

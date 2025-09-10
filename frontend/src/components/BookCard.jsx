@@ -34,12 +34,12 @@ export default function BookCard({ book }) {
     >
       <div className="relative">
         {coverUrl ? (
-          <img
-            src={coverUrl}
-            alt={`${book.title} cover`}
-            className="w-full h-44 object-cover"
-            loading="lazy"
-          />
+            <img
+              src={coverUrl}
+              alt={`${book.title} cover`}
+              className="w-full h-44 object-cover object-top"
+              loading="lazy"
+            />
         ) : (
           <div className="w-full h-44 bg-neutral-100 flex items-center justify-center text-neutral-400">
             No Image

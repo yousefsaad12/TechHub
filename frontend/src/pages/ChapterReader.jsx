@@ -5,6 +5,7 @@ import TableOfContents from '../components/TableOfContents';
 import ChapterHeader from '../components/ChapterHeader';
 import ChapterArticle from '../components/ChapterArticle';
 import ChapterReaderSkeleton from '../components/ChapterReaderSkeleton';
+import VideoPlayer from '../components/VideoPlayer';
 // ChapterNavigation removed
 import { extractSectionHeadings } from '../utils/extractSectionHeadings';
 import useChapter from '../hooks/useChapter';
@@ -107,7 +108,15 @@ const ChapterReader = () => {
       />
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 py-8">
+      <main className="max-w-5xl mx-auto px-8 py-12">
+        {/* Video Section */}
+        {chapter?.videoUrl && (
+          <VideoPlayer 
+            videoUrl={chapter.videoUrl} 
+            title={`${chapter.title} - Video`}
+          />
+        )}
+
         {/*
           To use 'Source Serif Pro' as the reading font, add this to your index.html:
           <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap" rel="stylesheet">

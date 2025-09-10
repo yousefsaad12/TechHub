@@ -1,10 +1,56 @@
-.markdown-content { line-height: 1.7; }
-.markdown-content h1 { color: #1f2937; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; margin-top: 2rem; }
-.markdown-content h2 { color: #374151; font-size: 2rem; font-weight: 600; margin-bottom: 0.75rem; margin-top: 2rem; }
-.markdown-content h3 { color: #4b5563; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 1.5rem; }
-.markdown-content p { margin-bottom: 1.25rem; color: #4b5563; }
-.markdown-content blockquote { border-left: 4px solid #3b82f6; background: #f8fafc; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
-.markdown-content blockquote p { margin: 0; color: #374151; font-style: italic; }
+.markdown-content { 
+  line-height: 1.9; 
+  letter-spacing: -0.01em;
+}
+.markdown-content h1 { 
+  color: #0f172a; 
+  font-size: 3rem; 
+  font-weight: 800; 
+  margin-bottom: 1.5rem; 
+  margin-top: 3rem; 
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.markdown-content h2 { 
+  color: #1e293b; 
+  font-size: 2.5rem; 
+  font-weight: 700; 
+  margin-bottom: 1.25rem; 
+  margin-top: 2.5rem; 
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+.markdown-content h3 { 
+  color: #334155; 
+  font-size: 2rem; 
+  font-weight: 600; 
+  margin-bottom: 1rem; 
+  margin-top: 2rem; 
+  letter-spacing: -0.015em;
+  line-height: 1.4;
+}
+.markdown-content p { 
+  margin-bottom: 1.75rem; 
+  color: #0f172a; 
+  font-size: 1.1875rem; 
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+.markdown-content blockquote { 
+  border-left: 4px solid #3b82f6; 
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); 
+  padding: 1.5rem 2rem; 
+  margin: 2rem 0; 
+  border-radius: 0 0.75rem 0.75rem 0; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.markdown-content blockquote p { 
+  margin: 0; 
+  color: #475569; 
+  font-style: italic; 
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
 
 /* Code-only styling (inline and blocks) — VS Code Dark+ */
 .markdown-content code:not(pre code) { background: #252526; color: #d4d4d4; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.875rem; }
@@ -22,10 +68,90 @@
 .markdown-content .hljs-comment { color: #6a9955; font-style: italic; }
 .markdown-content .hljs-addition { color: #b5cea8; background: rgba(181, 206, 168, 0.12); display: inline; }
 .markdown-content .hljs-deletion { color: #ce9178; background: rgba(206, 145, 120, 0.12); display: inline; }
-.markdown-content ul, .markdown-content ol { margin-bottom: 1.25rem; padding-left: 1.5rem; }
-.markdown-content li { margin-bottom: 0.5rem; color: #4b5563; }
-.markdown-content hr { border: none; height: 1px; background: linear-gradient(to right, transparent, #e5e7eb, transparent); margin: 2rem 0; }
-.markdown-content strong { color: #1f2937; font-weight: 600; }
-.markdown-content em { color: #6b7280; font-style: italic; }
+.markdown-content ul, .markdown-content ol { 
+  margin-bottom: 2rem; 
+  padding-left: 2rem; 
+}
+.markdown-content li { 
+  margin-bottom: 1rem; 
+  color: #1e293b; 
+  font-size: 1.25rem; 
+  line-height: 1.7;
+  position: relative;
+}
+.markdown-content ul li::marker { 
+  color: #3b82f6; 
+  font-size: 1.2em; 
+}
+.markdown-content ol li::marker { 
+  color: #3b82f6; 
+  font-weight: 600; 
+}
+.markdown-content hr { 
+  border: none; 
+  height: 2px; 
+  background: linear-gradient(to right, transparent, #cbd5e1, transparent); 
+  margin: 3rem 0; 
+  border-radius: 1px;
+}
+.markdown-content strong { 
+  color: #0f172a; 
+  font-weight: 700; 
+  letter-spacing: -0.01em;
+}
+.markdown-content em { 
+  color: #475569; 
+  font-style: italic; 
+  font-weight: 500;
+}
+
+/* Enhanced link styling */
+.markdown-content a { 
+  color: #2563eb; 
+  text-decoration: none; 
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.markdown-content a:hover { 
+  color: #1d4ed8; 
+  border-bottom-color: #2563eb;
+}
+
+/* Enhanced table styling */
+.markdown-content table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  margin: 2rem 0; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.markdown-content th, .markdown-content td { 
+  padding: 1rem 1.5rem; 
+  text-align: left; 
+  border-bottom: 1px solid #e2e8f0; 
+}
+.markdown-content th { 
+  background: #f8fafc; 
+  font-weight: 600; 
+  color: #1e293b; 
+  font-size: 1.125rem;
+}
+.markdown-content td { 
+  color: #334155; 
+  font-size: 1.125rem;
+}
+
+/* Enhanced image styling */
+.markdown-content img { 
+  max-width: 100%; 
+  height: auto; 
+  border-radius: 0.75rem; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+
 
 

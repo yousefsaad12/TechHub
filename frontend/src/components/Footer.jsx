@@ -60,7 +60,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} TechHub. All rights reserved.
           </p>
           <p className="text-gray-400 text-xs">
-            Built with React & Tailwind CSS
+            Built with love by Yousef Saad
           </p>
         </div>
       </div>

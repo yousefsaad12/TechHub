@@ -102,6 +102,7 @@ namespace backend.Infrastructure.Repository
                                             ChapterNumber = ch.ChapterNumber,
                                             Title = ch.Title,
                                             EstimatedReadTime = ch.EstimatedReadTime,
+                                            VideoUrl = ch.VideoUrl,
                                             CreatedAt = ch.CreatedAt
                                         })
                                         .ToListAsync();

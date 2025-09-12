@@ -26,13 +26,19 @@ const BookHeader = ({ bookData, chapters, totalReadTime, onBackClick }) => {
 
       {/* Book Header */}
       <div className="flex items-start space-x-6 mb-6 p-6 bg-white/80 backdrop-blur-sm border border-neutral-200 rounded-xl shadow-sm">
-        {coverUrl && (
-          <img 
-            src={coverUrl} 
-            alt={bookData.title}
-            className="w-20 h-28 object-cover rounded-lg border border-neutral-200 flex-shrink-0 shadow-sm"
-          />
-        )}
+        <div className="relative">
+          {coverUrl ? (
+            <img 
+              src={coverUrl} 
+              alt={bookData.title}
+              className="w-full h-44 object-cover object-top flex-shrink-0"
+            />
+          ) : (
+            <div className="w-full h-44 bg-neutral-100 flex items-center justify-center text-neutral-400">
+              No Image
+            </div>
+          )}
+        </div>
         
         <div className="flex-1">
           <div className="flex items-start justify-between">
@@ -63,7 +69,7 @@ const BookHeader = ({ bookData, chapters, totalReadTime, onBackClick }) => {
                 </div>
                 <div className="flex items-center space-x-1 text-neutral-500">
                   <Clock className="w-4 h-4" />
-                  <span>{Math.round(totalReadTime / 60)}h {totalReadTime % 60}m total</span>
+                  <span>{totalReadTime >= 60 ? `${Math.floor(totalReadTime / 60)}h ${totalReadTime % 60}m` : `${totalReadTime}m`} total</span>
                 </div>
               </div>
             </div>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Hero() {
   return (
     <section className=" mb-50">
@@ -16,15 +18,15 @@ export default function Hero() {
 
         {/* CTA Button */}
         <div className="mt-10">
-          <a
-            href="books"
+          <Link
+            to="/books"
             className=" px-8 py-3 rounded-4xl bg-black text-white font-medium 
                        hover:bg-white hover:text-black hover:border hover:border-black 
                        transition-colors duration-300 tracking-wide text-base sm:text-lg md:text-xl
                        "
           >
             Get Started
-          </a>
+          </Link>
         </div>
 
         {/* Extra small text */}

@@ -23,22 +23,14 @@ builder.Configuration
 // CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("FrontendPolicy", policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-
-    options.AddPolicy("AllowSpecificOrigin", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000", "https://yourdomain.com")
+        policy.WithOrigins("https://techhub1.vercel.app") // Your Vercel frontend URL
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials();
+              .AllowCredentials(); // Only if your frontend uses cookies/auth
     });
 });
-
 // Connection string (comes from env or .env file)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -65,7 +57,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseCors("AllowAll");
+app.UseCors("FrontendPolicy");
 app.MapControllers();
 app.UseHttpsRedirection();
 

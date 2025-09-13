@@ -40,7 +40,7 @@ export default function Footer() {
               <FaTiktok className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
             <a
-              href="https://www.youtube.com/"
+              href="https://www.youtube.com/@CodeCraft-1X"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-700 hover:text-red-600 hover:scale-110 transition-all duration-300 p-1.5 sm:p-2 rounded-full hover:bg-gray-100"
